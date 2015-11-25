@@ -1,0 +1,3 @@
+#virtual simulation the sencondary particle
+/Edit/gun/setGunType 0
+/run/beamOn 100000

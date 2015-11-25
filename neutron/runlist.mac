@@ -1,0 +1,21 @@
+#virtual simulation the sencondary particle
+/gun/particle ion
+#Li6
+/gun/ion 3 6 3
+/run/beamOn 100000
+#B10
+/gun/ion 5 10 5
+/run/beamOn 100000
+#C12
+/gun/ion 6 12 6
+/run/beamOn 100000
+#O16
+/gun/ion 8 16 8
+/run/beamOn 100000
+#Ar40
+/gun/ion 18 40 18
+/run/beamOn 100000
+#Fe56
+/gun/ion 26 56 26
+/run/beamOn 100000
+
