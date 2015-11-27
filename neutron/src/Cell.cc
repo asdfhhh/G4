@@ -1,13 +1,12 @@
 /************************************************
 * Author: Fan Ruirui
 * email:fanrr@ihep.ac.cn
-* Last modified:	2015-07-01 14:38
+* Last modified:	2015-11-27 11:29
 * Filename:		Cell.cc
 * Description: 
 *************************************************/
 #include "G4Material.hh"
 #include "G4Element.hh"
-#include "G4Box.hh"
 #include "G4LogicalVolume.hh"
 #include "G4ThreeVector.hh"
 #include "G4EqMagElectricField.hh"
@@ -32,18 +31,21 @@
 using namespace std;
 
 Cell::Cell(int N_Det)
-:  dE1_tub(0),dE2_tub(0),dE3_tub(0),E_tub(0),aCell_tub(0),
+:  dE1_box(0),dE2_box(0),dE3_box(0),E_box(0),aCell_box(0),
 dE1_log(0),dE2_log(0),dE3_log(0),E_log(0),aCell_log(0),
 dE1_phys(0),dE2_phys(0),dE3_phys(0),E_phys(0),aCell_phys(0)
 {
 	nCell= N_Det;
 	d1=0.5*um;
-	d2=40*mm;
+	d2=4*mm;
 	d3=300*um;
 	d4=30*mm;
 	l1=1*cm;
 	l2=1*cm;
-	R=2*cm;
+	R1=3*cm;
+	R2=2.5*cm;
+	R3=3*cm;
+	R=R1;
 	Det_len=d1+d2+d3+d4+l1+l2;
 }
 
@@ -107,17 +109,17 @@ G4LogicalVolume* Cell::Construct()
   //G4Material* Ar= man->FindOrBuildMaterial("G4_Ar");
 
 //detector construction
-	dE1_tub=new G4Tubs("dE1_tub",0,R,d1/2,0,2*pi);
-	dE2_tub=new G4Tubs("dE2_tub",0,R,d2/2,0,2*pi);
-        dE3_tub=new G4Tubs("dE3_tub",0,R,d3/2,0,2*pi);
-	E_tub=new G4Tubs("E_tub",0,R,d4/2,0,2*pi);
-	aCell_tub=new G4Tubs("E_tub",0,R,Det_len/2,0,2*pi);
+	dE1_box=new G4Box("dE1_box",R1/2,R1/2,d1/2);
+	dE2_box=new G4Box("dE2_box",R1/2,R1/2,d2/2);
+	dE3_box=new G4Box("dE3_box",R2/2,R2/2,d3/2);
+	E_box=new G4Box("E_box",R3/2,R3/2,d4/2);
+	aCell_box=new G4Box("E_box",R/2,R/2,Det_len/2);
  
-	dE1_log=new G4LogicalVolume(dE1_tub,MYLAR,"dE1_log");
-        dE2_log=new G4LogicalVolume(dE2_tub,Ar,"dE2_log");
-	dE3_log=new G4LogicalVolume(dE3_tub,Si,"dE3_log");
-	E_log=new G4LogicalVolume(E_tub,CsI,"E_log");
-	aCell_log=new G4LogicalVolume(aCell_tub,Vacuum,"aCell_log");
+	dE1_log=new G4LogicalVolume(dE1_box,MYLAR,"dE1_log");
+	dE2_log=new G4LogicalVolume(dE2_box,Ar,"dE2_log");
+	dE3_log=new G4LogicalVolume(dE3_box,Si,"dE3_log");
+	E_log=new G4LogicalVolume(E_box,CsI,"E_log");
+	aCell_log=new G4LogicalVolume(aCell_box,Vacuum,"aCell_log");
 
 	dE1_phys=new G4PVPlacement(0,G4ThreeVector(0,0,Det_len/2-d1/2),dE1_log,"dE1",aCell_log,false,0);
 	dE2_phys=new G4PVPlacement(0,G4ThreeVector(0,0,Det_len/2-d1-d2/2),dE2_log,"dE2",aCell_log,false,1);
@@ -126,17 +128,17 @@ G4LogicalVolume* Cell::Construct()
 
   
 //set colour
-	G4VisAttributes* VisAtt1= new G4VisAttributes(G4Colour(0.5,0.5,0.5));
+	G4VisAttributes* VisAtt1= new G4VisAttributes(G4Colour(1.0,1.0,1.0));
 	G4VisAttributes* VisAtt2= new G4VisAttributes(G4Colour(0.0,1.0,1.0));
-	G4VisAttributes* VisAtt3= new G4VisAttributes(G4Colour(0.0,1.0,0.0));
-	G4VisAttributes* VisAtt4= new G4VisAttributes(G4Colour(1.0,1.0,0.0));
-	G4VisAttributes* VisAtt5= new G4VisAttributes(G4Colour(0.0,1.0,0.5));
+	G4VisAttributes* VisAtt3= new G4VisAttributes(G4Colour(1.0,1.0,0.0));
+	G4VisAttributes* VisAtt4= new G4VisAttributes(G4Colour(0.5,0.5,0.5));
+	G4VisAttributes* VisAtt5= new G4VisAttributes(G4Colour(0.0,0.0,1.0));
 
-	dE1_log->SetVisAttributes(VisAtt5);
+	dE1_log->SetVisAttributes(VisAtt1);
 	dE2_log->SetVisAttributes(VisAtt2);
-        dE3_log->SetVisAttributes(VisAtt3);
-	E_log->SetVisAttributes(VisAtt3);
-	aCell_log->SetVisAttributes(VisAtt4);
+	dE3_log->SetVisAttributes(VisAtt3);
+	E_log->SetVisAttributes(VisAtt4);
+	aCell_log->SetVisAttributes(VisAtt5);
 	aCell_log->SetVisAttributes (G4VisAttributes::Invisible);
 
 //set SD
@@ -146,7 +148,7 @@ G4LogicalVolume* Cell::Construct()
 	SDman->AddNewDetector(TelSD);
 	dE1_log->SetSensitiveDetector(TelSD);
 	dE2_log->SetSensitiveDetector(TelSD);
-        dE3_log->SetSensitiveDetector(TelSD);
+	dE3_log->SetSensitiveDetector(TelSD);
 	E_log->SetSensitiveDetector(TelSD);
 
 	return aCell_log;

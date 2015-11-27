@@ -1,7 +1,7 @@
 /************************************************
 * Author: Fan Ruirui
 * email:fanrr@ihep.ac.cn
-* Last modified:	2015-07-01 14:46
+* Last modified:	2015-11-27 11:24
 * Filename:		Cell.hh
 * Description: 
 *************************************************/
@@ -13,18 +13,18 @@ class G4LogicalVolume;
 class G4VPhysicalVolume;
 class G4Material;
 #include "G4VUserDetectorConstruction.hh"
-#include "G4Tubs.hh"
+#include "G4Box.hh"
 /*/////////////////////////////////////////////////////////
 
       dE1 dE2       dE3                 E
      ========      =====          ==================  
     |    |   |    |     |        |                  | 
-    |    |   |    |     |        |                  | 
-    |    |   |    |     |        |                  | 
-    |    |   |    |     |        |                  |  R
-    |Gas |   |    |  Si |        |     CsI(Tl)      |
-    |    |   |    |     |        |                  |
-    |    |   |    |     |        |                  |
+    | w  |   |    |     |        |                  | 
+    | i  |   |    |     |        |                  | 
+    | n  |   |    |     |        |                  | 
+    | d  |Gas|R1  |  Si |R2      |     CsI(Tl)      |R3
+    | o  |   |    |     |        |                  |
+    | w  |   |    |     |        |                  |
     |    |   |    |     |        |                  |
     |    |   |    |     |        |                  |
      ========      =====          ==================
@@ -47,17 +47,20 @@ class Cell
         G4double d4;
 	G4double l1;
 	G4double l2;
+	G4double R1;
+	G4double R2;
+        G4double R3;
 	G4double R;
 	G4double Det_len;
 	inline G4double GetRadius(){return R;}
         inline G4double GetHalfLength(){return Det_len/2;}
  private:
-	//tubs of 3 detectors
-	G4Tubs *dE1_tub;
-	G4Tubs *dE2_tub;
-        G4Tubs *dE3_tub;
-	G4Tubs *E_tub;
-	G4Tubs *aCell_tub;
+	//boxes of 3 detectors
+	G4Box *dE1_box;
+	G4Box *dE2_box;
+        G4Box *dE3_box;
+	G4Box *E_box;
+	G4Box *aCell_box;
 	// Logical volumes
 	G4LogicalVolume* dE1_log;
 	G4LogicalVolume* dE2_log;
