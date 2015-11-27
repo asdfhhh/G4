@@ -1,13 +1,12 @@
 /************************************************
 * Author: Fan Ruirui
 * email:fanrr@ihep.ac.cn
-* Last modified:	2015-07-01 14:39
+* Last modified:	2015-11-27 15:33
 * Filename:		DataBase.cc
 * Description: 
 *************************************************/
 #include "DataBase.hh"
-#ifndef Det_TEST
-
+#include "Initial.hh"
 DataBase::DataBase(int Tname):sample_event(0),sub_event(0)
 {
 	printf("Initial data storage......\n");
@@ -23,7 +22,6 @@ DataBase::DataBase(int Tname):sample_event(0),sub_event(0)
 //initial the file output
 	hfile = new TFile(name,"RECREATE","ROOT file in Simulation");
 	//bin_file.open(bin_name,ios_base::binary);
-	v_energy=new TH1F("v_energy","the Vertex Energy",200,0,100000);
 	printf(".......Initial complete!\n");
 }
 
@@ -58,6 +56,12 @@ void DataBase::MakeTree(int det_num)
 		sprintf(Bname,"D_energy%d/I",i+1);
 		d->Branch(Hname,&D_energy[i],Bname);
 	}*/
+	if(Target_flag)
+	{
+		v=new TTree("vertex","Vertex");
+		v->Branch("V_name",&v_name,"name/C");
+		v->Branch("V_energy",&v_energy,"energy/D");
+	}	
 }
 
  void DataBase::FillTrueth(double energy1,int D_id1)
@@ -122,9 +126,12 @@ void DataBase::FillOnline(int energy1)
 	total->Fill(energy1);
 	thp->UnLock();*/
 }
-void DataBase::FillVertexEnergy(double energy1)
+void DataBase::FillVertexEnergy(G4String name1,double energy1)
 {
-	v_energy->Fill(energy1);
+//	v_name[strlen(name1.c_str())];
+	strcpy(v_name,name1.c_str());
+//	v_name=name1;
+	v_energy=energy1;
+	v->Fill();
 }
-#endif
 

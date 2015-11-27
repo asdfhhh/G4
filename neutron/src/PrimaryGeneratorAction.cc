@@ -55,10 +55,10 @@ void PrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent)
 	{
 		particle = particleTable->FindParticle(particleName="neutron");
 		particleGun->SetParticleDefinition(particle);
-		particleGun->SetParticleEnergy(3*G4UniformRand()*MeV);
+		particleGun->SetParticleEnergy(200*G4UniformRand()*MeV);
 		particleGun->SetParticleMomentumDirection(G4ThreeVector(0,-1,0)); 
 		particleGun->SetParticlePosition(G4ThreeVector(0,40*cm,0));
-		particleGun->GeneratePrimaryVertex(anEvent); 
+		particleGun->GeneratePrimaryVertex(anEvent);
 
 	}
 	else 
