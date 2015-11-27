@@ -33,12 +33,12 @@ const G4LogicalVolume * GetLogicalVolumeAtVertex () const G4String GetName () co
 	if(aTrack->GetParentID()!=0)
 	{
 		Log_name=aTrack->GetLogicalVolumeAtVertex()->GetName();
-		if (Log_name=="T1_log")
+		if (Log_name=="target_log")
 		{
 			aData->AddSampleEvent();
-			aData->FillVertexEnergy((aTrack->GetVertexKineticEnergy())/keV);
+			aData->FillVertexEnergy(aTrack->GetParticleDefinition()->GetParticleName(),(aTrack->GetVertexKineticEnergy())/keV);
 		}
-		else if (Log_name=="T2_log")aData->AddSubEvent();
+		else if (Log_name=="substain_log")aData->AddSubEvent();
 	}
 }
 

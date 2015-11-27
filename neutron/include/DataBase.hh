@@ -1,8 +1,8 @@
 /************************************************
 * Author: Fan Ruirui
 * email:fanrr@ihep.ac.cn
-* Last modified: 2015-07-01 14:46
-* Filename: DataBase.hh
+* Last modified:	2015-11-27 15:33
+* Filename:		DataBase.hh
 * Description: 
 *************************************************/
 #ifndef DataBase_h
@@ -19,7 +19,6 @@
 #include <iostream>
 #include <fstream>
 using namespace std;
-#ifndef Det_TEST
 
 class DataBase
 {
@@ -33,7 +32,7 @@ public:
 	void FillData(int,int);
 	void FillOnline(int); 
 	void Fill2DOnline(int,int,int);
-	void FillVertexEnergy(double) ;
+	void FillVertexEnergy(G4String,double) ;
 	void SaveData(int);
 	void SaveTrueth();
 	void ResetOnline();
@@ -42,18 +41,18 @@ public:
 	int GetSampleEvent(){return sample_event;}
 	int GetSubEvent(){return sub_event;}
 
-	TH1F*v_energy;
-
 private: 
 	TTree*t;
 	TTree*d;
+	TTree*v;
 	char Hname[100];
 	TFile* hfile;
 	double *energy;
 	int *D_energy;
 	int Evn_number;
 	ofstream bin_file;
+	char v_name[100];
+	double v_energy;
 };
-#endif
 #endif /*DataBase_h*/
 
