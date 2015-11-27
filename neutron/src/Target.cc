@@ -81,17 +81,17 @@ G4LogicalVolume* Target::Construct()
 	T2_tub=new G4Tubs("T2_tub",0,R,d2/2,0,2*pi);
 	aTarget_tub=new G4Tubs("T_tub",0,R,Target_len/2,0,2*pi);
  
-	T1_log=new G4LogicalVolume(T1_tub,M_substain,"T1_log");
-        T2_log=new G4LogicalVolume(T2_tub,M_substain,"T2_log");
+	T1_log=new G4LogicalVolume(T1_tub,Li_t,"target_log");
+        T2_log=new G4LogicalVolume(T2_tub,M_substain,"substain_log");
 	aTarget_log=new G4LogicalVolume(aTarget_tub,Vacuum,"aTarget_log");
 
-	T1_phys=new G4PVPlacement(0,G4ThreeVector(0,0,d1/2),T1_log,"T1",aTarget_log,false,0);
-	T2_phys=new G4PVPlacement(0,G4ThreeVector(0,0,-d2/2),T2_log,"T2",aTarget_log,false,0);
+	T1_phys=new G4PVPlacement(0,G4ThreeVector(0,0,d1/2),T1_log,"target",aTarget_log,false,0);
+	T2_phys=new G4PVPlacement(0,G4ThreeVector(0,0,-d2/2),T2_log,"substain",aTarget_log,false,0);
 
   
 //set colour
-	G4VisAttributes* VisAtt1= new G4VisAttributes(G4Colour(1,0,0));
-	G4VisAttributes* VisAtt2= new G4VisAttributes(G4Colour(0,0,1));
+	G4VisAttributes* VisAtt1= new G4VisAttributes(G4Colour(1,0,0));//red
+	G4VisAttributes* VisAtt2= new G4VisAttributes(G4Colour(0,0,1));//blue
 
 
 	T1_log->SetVisAttributes(VisAtt1);
