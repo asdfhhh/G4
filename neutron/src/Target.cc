@@ -1,7 +1,7 @@
 /************************************************
 * Author: Fan Ruirui
 * email:fanrr@ihep.ac.cn
-* Last modified:	2015-07-01 14:45
+* Last modified:	2015-11-27 11:06
 * Filename:		Target.cc
 * Description: 
 *************************************************/
@@ -76,6 +76,20 @@ G4LogicalVolume* Target::Construct()
 	density = 0.534*g/cm3;
 	G4Material* Li_t = new G4Material(name="target Li", density, ncomponents=1);
 	Li_t->AddElement(elLi, 100.00*perCent);
+//add the isotope Mg25
+	G4Isotope*Mg25=new G4Isotope(name="Mg25", iz=12, n=25, a=24.985*g/mole);
+	G4Element* elMg  = new G4Element(name="element Mg", symbol="Mg", ncomponents=1);
+	elMg->AddIsotope(Mg25, abundance= 100*perCent);
+	density = 1.738*g/cm3;
+        G4Material* Mg_t = new G4Material(name="target Mg", density, ncomponents=1);
+        Mg_t->AddElement(elMg, 100.00*perCent);
+//add the isotope Fe56
+        G4Isotope*Fe56=new G4Isotope(name="Fe56", iz=26, n=56, a=55.935*g/mole);
+        G4Element* elFe  = new G4Element(name="element Fe", symbol="Fe", ncomponents=1);
+	elFe->AddIsotope(Fe56, abundance= 100*perCent);
+        density = 7.86*g/cm3;
+	G4Material* Fe_t = new G4Material(name="target Fe", density, ncomponents=1);
+	Fe_t->AddElement(elFe, 100.00*perCent);
 //detector construction
 	T1_tub=new G4Tubs("T1_tub",0,R,d1/2,0,2*pi);
 	T2_tub=new G4Tubs("T2_tub",0,R,d2/2,0,2*pi);
