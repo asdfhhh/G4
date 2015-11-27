@@ -1,7 +1,7 @@
 /************************************************
 * Author: Fan Ruirui
 * email:fanrr@ihep.ac.cn
-* Last modified:	2015-07-01 14:44
+* Last modified:	2015-11-26 15:33
 * Filename:		DetectorConstruction.cc
 * Description: 
 *************************************************/
@@ -97,17 +97,22 @@ G4VPhysicalVolume* DetectorConstruction::Construct()
 	//construction the target
 	if(Target_flag)
 	{
+		G4RotationMatrix* rm_t= new G4RotationMatrix();
+		rm_t->rotateX(90*deg);
+		rm_t->rotateY(45*deg);
 		atarget=new Target();
 		target_log=atarget->Construct();
-		target_phys=new G4PVPlacement(rm_x,G4ThreeVector(0,0,0),target_log,name,chamberinner_log,false,0);
+		target_phys=new G4PVPlacement(rm_t,G4ThreeVector(0,0,0),target_log,name,chamberinner_log,false,0);
 	}
 	//give some colour see see
 	G4VisAttributes* VisAtt1= new G4VisAttributes(G4Colour(0.5,0.5,0.5));
-	chamber_log->SetVisAttributes(VisAtt1);
+	chamber_log->SetVisAttributes(G4VisAttributes::Invisible);
 	chamberinner_log->SetVisAttributes (G4VisAttributes::Invisible);
 	experimentalHall_log->SetVisAttributes (G4VisAttributes::Invisible);
-  	return experimentalHall_phys;
+// print the table of materials
+	G4cout << *(G4Material::GetMaterialTable()) << endl;	
 	printf("Initial complete!\n");
+	return experimentalHall_phys;
 }
 
 

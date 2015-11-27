@@ -6,7 +6,7 @@
 name := neutron
 G4TARGET := $(name)
 G4EXLIB := true
-CPPFLAGS   += -fPIC -fPIE -I/usr/include/Qt -I/usr/include/QtGui
+CPPFLAGS   += -fPIC -fPIE -g -I/usr/include/Qt -I/usr/include/QtGui
 EXTRALIBS  += -L/usr/lib -lQtCore -lQtGui -lQtUiTools -lQtOpenGL
 CPPFLAGS    += -I`root-config --incdir`
 EXTRALIBS   += `root-config --glibs` 
