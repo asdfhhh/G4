@@ -37,9 +37,9 @@ Target::Target()
 T1_log(0),T2_log(0),aTarget_log(0),
 T1_phys(0),T2_phys(0),aTarget_phys(0)
 {
-	d1=0.5*um;
-	d2=0.5*um;
-	R=1*cm;
+	d1=50*um;
+	d2=1*mm;
+	R=4*cm;
 	Target_len=d1+d2;
 }
 
@@ -65,14 +65,14 @@ G4LogicalVolume* Target::Construct()
 	man->SetVerbose(0);
 //construction G4_POLYETHYLENE
 	G4Material* PE= man->FindOrBuildMaterial("G4_POLYETHYLENE");
-	G4Material* M_substain= man->FindOrBuildMaterial("G4_MYLAR");
-	G4Material* M_target= man->FindOrBuildMaterial("G4_Co");
+	G4Material* M_substain= man->FindOrBuildMaterial("G4_Ta");
 //add the Isotope Li
 	G4Isotope*Li6=new G4Isotope(name="Li6", iz=3, n=6, a=6.015*g/mole);
 	G4Isotope*Li7=new G4Isotope(name="Li7", iz=3, n=7, a=7.016*g/mole);
-	G4Element* elLi  = new G4Element(name="element Li", symbol="Li", ncomponents=2);
-	elLi->AddIsotope(Li6, abundance= 7.59*perCent);
-	elLi->AddIsotope(Li7, abundance= 92.41*perCent);
+	G4Element* elLi  = new G4Element(name="element Li", symbol="Li", ncomponents=1);
+	//elLi->AddIsotope(Li6, abundance= 7.59*perCent);
+	//elLi->AddIsotope(Li7, abundance= 92.41*perCent);
+	elLi->AddIsotope(Li6, abundance= 100*perCent);
 	density = 0.534*g/cm3;
 	G4Material* Li_t = new G4Material(name="target Li", density, ncomponents=1);
 	Li_t->AddElement(elLi, 100.00*perCent);
@@ -99,7 +99,7 @@ G4LogicalVolume* Target::Construct()
         T2_log=new G4LogicalVolume(T2_tub,M_substain,"substain_log");
 	aTarget_log=new G4LogicalVolume(aTarget_tub,Vacuum,"aTarget_log");
 
-	T1_phys=new G4PVPlacement(0,G4ThreeVector(0,0,d1/2),T1_log,"target",aTarget_log,false,0);
+	T1_phys=new G4PVPlacement(0,G4ThreeVector(0,0,d1/2),T1_log,"Target",aTarget_log,false,0);
 	T2_phys=new G4PVPlacement(0,G4ThreeVector(0,0,-d2/2),T2_log,"substain",aTarget_log,false,0);
 
   
