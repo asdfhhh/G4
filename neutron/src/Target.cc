@@ -40,7 +40,7 @@ T1_phys(0),T2_phys(0),aTarget_phys(0)
 	d1=50*um;
 	d2=1*mm;
 	R=4*cm;
-	Target_len=d1+d2;
+	Target_len=2*d1+d2;
 }
 
 Target::~Target()
@@ -99,8 +99,9 @@ G4LogicalVolume* Target::Construct()
         T2_log=new G4LogicalVolume(T2_tub,M_substain,"substain_log");
 	aTarget_log=new G4LogicalVolume(aTarget_tub,Vacuum,"aTarget_log");
 
-	T1_phys=new G4PVPlacement(0,G4ThreeVector(0,0,d1/2),T1_log,"Target",aTarget_log,false,0);
-	T2_phys=new G4PVPlacement(0,G4ThreeVector(0,0,-d2/2),T2_log,"substain",aTarget_log,false,0);
+	new G4PVPlacement(0,G4ThreeVector(0,0,(d1+d2)/2),T1_log,"Target",aTarget_log,false,0);
+	new G4PVPlacement(0,G4ThreeVector(0,0,0),T2_log,"substain",aTarget_log,false,0);
+        new G4PVPlacement(0,G4ThreeVector(0,0,-(d1+d2)/2),T1_log,"Target",aTarget_log,false,0);
 
   
 //set colour
