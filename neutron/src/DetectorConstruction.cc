@@ -1,7 +1,7 @@
 /************************************************
 * Author: Fan Ruirui
 * email:fanrr@ihep.ac.cn
-* Last modified:	2015-11-26 15:33
+* Last modified:	2015-12-24 14:45
 * Filename:		DetectorConstruction.cc
 * Description: 
 *************************************************/
@@ -95,15 +95,14 @@ G4VPhysicalVolume* DetectorConstruction::Construct()
 		new G4PVPlacement(rm_d,G4ThreeVector(sin(r_angle)*Det_dis,-cos(r_angle)*Det_dis,0),detector_log,name,chamberinner_log,false,i);
 	}
 	//construction the target
-	if(Target_flag)
-	{
-		G4RotationMatrix* rm_t= new G4RotationMatrix();
-		rm_t->rotateX(90*deg);
-		rm_t->rotateY(45*deg);
-		atarget=new Target();
-		target_log=atarget->Construct();
-		target_phys=new G4PVPlacement(rm_t,G4ThreeVector(0,0,0),target_log,name,chamberinner_log,false,0);
-	}
+	#ifdef Target_flag
+	G4RotationMatrix* rm_t= new G4RotationMatrix();
+	rm_t->rotateX(90*deg);
+	rm_t->rotateY(45*deg);
+	atarget=new Target();
+	target_log=atarget->Construct();
+	target_phys=new G4PVPlacement(rm_t,G4ThreeVector(0,0,0),target_log,name,chamberinner_log,false,0);
+	#endif
 	//give some colour see see
 	G4VisAttributes* VisAtt1= new G4VisAttributes(G4Colour(0.5,0.5,0.5));
 	chamber_log->SetVisAttributes(G4VisAttributes::Invisible);

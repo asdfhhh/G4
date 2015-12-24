@@ -1,8 +1,8 @@
 /************************************************
 * Author: Fan Ruirui
 * email:fanrr@ihep.ac.cn
-* Last modified: 2015-07-01 14:46
-* Filename: PrimaryGeneratorMessenger.cc
+* Last modified:	2015-12-24 14:47
+* Filename:		PrimaryGeneratorMessenger.cc
 * Description: 
 *************************************************/
 
@@ -24,12 +24,12 @@ PrimaryGeneratorMessenger::PrimaryGeneratorMessenger(
   fGunDir = new G4UIdirectory("/Edit/gun/");
   fGunDir->SetGuidance("gun control");
  
-  fDefaultCmd = new G4UIcmdWithAnInteger("/Edit/gun/setGunType",this);
+/*  fDefaultCmd = new G4UIcmdWithAnInteger("/Edit/gun/setGunType",this);
   fDefaultCmd->SetGuidance("set the particle gun type ");
   fDefaultCmd->SetGuidance("1:neutron 0:secondary charged particle");
   fDefaultCmd->SetParameterName("type",true);
   fDefaultCmd->SetDefaultValue(0);
-  fDefaultCmd->AvailableForStates(G4State_PreInit,G4State_Idle);
+  fDefaultCmd->AvailableForStates(G4State_PreInit,G4State_Idle);*/
 
 }
 
@@ -46,8 +46,8 @@ PrimaryGeneratorMessenger::~PrimaryGeneratorMessenger()
 void PrimaryGeneratorMessenger::SetNewValue(G4UIcommand* command,
                                                G4String newValue)
 { 
-  if (command == fDefaultCmd)
-   {Action->SetGunType(fDefaultCmd->GetNewIntValue(newValue));}
+/*  if (command == fDefaultCmd)
+   {Action->SetGunType(fDefaultCmd->GetNewIntValue(newValue));}*/
  
 }
 

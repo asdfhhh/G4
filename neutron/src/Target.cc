@@ -65,7 +65,7 @@ G4LogicalVolume* Target::Construct()
 	man->SetVerbose(0);
 //construction G4_POLYETHYLENE
 	G4Material* PE= man->FindOrBuildMaterial("G4_POLYETHYLENE");
-	G4Material* M_substain= man->FindOrBuildMaterial("G4_Ta");
+	G4Material* M_substain= man->FindOrBuildMaterial("G4_MYLAR");
 //add the Isotope Li
 	G4Isotope*Li6=new G4Isotope(name="Li6", iz=3, n=6, a=6.015*g/mole);
 	G4Isotope*Li7=new G4Isotope(name="Li7", iz=3, n=7, a=7.016*g/mole);
@@ -96,7 +96,7 @@ G4LogicalVolume* Target::Construct()
 	aTarget_tub=new G4Tubs("T_tub",0,R,Target_len/2,0,2*pi);
  
 	T1_log=new G4LogicalVolume(T1_tub,Li_t,"target_log");
-        T2_log=new G4LogicalVolume(T2_tub,M_substain,"substain_log");
+        T2_log=new G4LogicalVolume(T2_tub,Vacuum,"substain_log");
 	aTarget_log=new G4LogicalVolume(aTarget_tub,Vacuum,"aTarget_log");
 
 	new G4PVPlacement(0,G4ThreeVector(0,0,(d1+d2)/2),T1_log,"Target",aTarget_log,false,0);

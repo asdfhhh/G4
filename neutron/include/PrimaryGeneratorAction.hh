@@ -1,8 +1,8 @@
 /************************************************
 * Author: Fan Ruirui
 * email:fanrr@ihep.ac.cn
-* Last modified: 2015-07-01 14:48
-* Filename: PrimaryGeneratorAction.hh
+* Last modified:	2015-12-24 14:46
+* Filename:		PrimaryGeneratorAction.hh
 * Description: 
 *************************************************/
 
@@ -11,6 +11,8 @@
 #include "globals.hh"
 #include "G4VUserPrimaryGeneratorAction.hh"
 #include "DetectorConstruction.hh"
+#include "TH1F.h"
+#include "Initial.hh"
 
 class G4VPrimaryGenerator;
 class G4ParticleGun;
@@ -24,12 +26,14 @@ public:
 	PrimaryGeneratorAction(DetectorConstruction*);
 	~PrimaryGeneratorAction();
 	void GeneratePrimaries(G4Event* anEvent);
-	int Gun_type;
-	virtual void SetGunType(int type_tmp){Gun_type=type_tmp;};
 private:
 	G4ParticleGun* particleGun;
 	DetectorConstruction*thisdet;    
 	PrimaryGeneratorMessenger* fGunMessenger;     
+	#ifdef Target_flag
+	TH1F*Gen_list;
+	void InitialGenList();
+	#endif
 };
 #endif
 
