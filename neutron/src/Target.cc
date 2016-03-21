@@ -37,7 +37,7 @@ Target::Target()
 T1_log(0),T2_log(0),aTarget_log(0),
 T1_phys(0),T2_phys(0),aTarget_phys(0)
 {
-	d1=50*um;
+	d1=5*um;
 	d2=1*mm;
 	R=4*cm;
 	Target_len=2*d1+d2;
