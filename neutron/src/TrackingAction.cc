@@ -1,8 +1,8 @@
 /************************************************
 * Author: Fan Ruirui
 * email:fanrr@ihep.ac.cn
-* Last modified: 2015-07-29 14:41
-* Filename: TrackingAction.cc
+* Last modified:	2016-03-22 14:29
+* Filename:		TrackingAction.cc
 * Description: 
 *************************************************/
 #include "TrackingAction.hh"
@@ -36,7 +36,7 @@ const G4LogicalVolume * GetLogicalVolumeAtVertex () const G4String GetName () co
 		if (Log_name=="target_log")
 		{
 			aData->AddSampleEvent();
-			aData->FillVertexEnergy(aTrack->GetParticleDefinition()->GetParticleName(),(aTrack->GetVertexKineticEnergy())/keV);
+			aData->FillVertexEnergy(aTrack->GetParticleDefinition()->GetParticleName(),(aTrack->GetVertexKineticEnergy())/keV,(aTrack->GetGlobalTime()/ns));
 		}
 		else if (Log_name=="substain_log")aData->AddSubEvent();
 	}

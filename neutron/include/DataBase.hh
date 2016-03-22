@@ -1,7 +1,7 @@
 /************************************************
 * Author: Fan Ruirui
 * email:fanrr@ihep.ac.cn
-* Last modified:	2015-11-27 15:33
+* Last modified:	2016-03-22 14:26
 * Filename:		DataBase.hh
 * Description: 
 *************************************************/
@@ -32,7 +32,7 @@ public:
 	void FillData(int,int);
 	void FillOnline(int); 
 	void Fill2DOnline(int,int,int);
-	void FillVertexEnergy(G4String,double) ;
+	void FillVertexEnergy(G4String,double,double) ;
 	void SaveData(int);
 	void SaveTrueth();
 	void ResetOnline();
@@ -53,6 +53,7 @@ private:
 	ofstream bin_file;
 	char v_name[100];
 	double v_energy;
+	double v_time;
 };
 #endif /*DataBase_h*/
 

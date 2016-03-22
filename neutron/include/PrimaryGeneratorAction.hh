@@ -30,7 +30,7 @@ private:
 	G4ParticleGun* particleGun;
 	DetectorConstruction*thisdet;    
 	PrimaryGeneratorMessenger* fGunMessenger;     
-	#ifdef Target_flag
+	#if Target_flag
 	TH1F*Gen_list;
 	void InitialGenList();
 	#endif

@@ -1,7 +1,7 @@
 /************************************************
 * Author: Fan Ruirui
 * email:fanrr@ihep.ac.cn
-* Last modified:	2015-12-24 14:45
+* Last modified:	2016-03-22 14:27
 * Filename:		DetectorConstruction.cc
 * Description: 
 *************************************************/
@@ -60,7 +60,7 @@ G4VPhysicalVolume* DetectorConstruction::Construct()
 	//------------------------------ experimental hall (world volume)
 	//------------------------------ beam line along z axis
  
-	experimentalHall_box = new G4Box("expHall_box",2*m,2*m,2*m);
+	experimentalHall_box = new G4Box("expHall_box",2*m,60*m,2*m);
 	experimentalHall_log = new G4LogicalVolume(experimentalHall_box,Vacuum,"expHall_log",0,0,0);
 	experimentalHall_phys = new G4PVPlacement(0,G4ThreeVector(),experimentalHall_log,"expHall",0,false,0);
 	//chamber construction
@@ -95,7 +95,7 @@ G4VPhysicalVolume* DetectorConstruction::Construct()
 		new G4PVPlacement(rm_d,G4ThreeVector(sin(r_angle)*Det_dis,-cos(r_angle)*Det_dis,0),detector_log,name,chamberinner_log,false,i);
 	}
 	//construction the target
-	#ifdef Target_flag
+	#if Target_flag
 	G4RotationMatrix* rm_t= new G4RotationMatrix();
 	rm_t->rotateX(90*deg);
 	rm_t->rotateY(45*deg);

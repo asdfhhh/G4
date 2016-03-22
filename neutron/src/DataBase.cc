@@ -1,7 +1,7 @@
 /************************************************
 * Author: Fan Ruirui
 * email:fanrr@ihep.ac.cn
-* Last modified:	2015-11-27 15:33
+* Last modified:	2016-03-22 14:26
 * Filename:		DataBase.cc
 * Description: 
 *************************************************/
@@ -61,6 +61,7 @@ void DataBase::MakeTree(int det_num)
 		v=new TTree("vertex","Vertex");
 		v->Branch("V_name",&v_name,"name/C");
 		v->Branch("V_energy",&v_energy,"energy/D");
+		v->Branch("V_time",&v_time,"time/D");
 	}	
 }
 
@@ -126,11 +127,11 @@ void DataBase::FillOnline(int energy1)
 	total->Fill(energy1);
 	thp->UnLock();*/
 }
-void DataBase::FillVertexEnergy(G4String name1,double energy1)
+void DataBase::FillVertexEnergy(G4String name1,double energy1,double time1)
 {
 //	v_name[strlen(name1.c_str())];
 	strcpy(v_name,name1.c_str());
-//	v_name=name1;
+	v_time=time1;
 	v_energy=energy1;
 	v->Fill();
 }
