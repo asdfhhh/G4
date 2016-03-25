@@ -1,8 +1,8 @@
 /************************************************
 * Author: Fan Ruirui
 * email:fanrr@ihep.ac.cn
-* Last modified: 2015-07-01 14:47
-* Filename: DetHit.hh
+* Last modified:	2016-03-25 10:22
+* Filename:		DetHit.hh
 * Description: 
 *************************************************/
 
@@ -34,7 +34,8 @@ class DetHit : public G4VHit
       void Print();
 
   private:
-       G4double edep;
+	G4double edep;
+	G4double intime;
   public:
       inline void SetEdep(G4double de)
       { edep =de;}
@@ -42,6 +43,11 @@ class DetHit : public G4VHit
         { edep +=de;}
         inline G4double GetEdep()
       { return edep; }
+	inline void SetInTime(G4double time_incident)
+	{ intime=time_incident;}
+	G4double GetInTime()
+	{ return intime;}
+
 
 };
 

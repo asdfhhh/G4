@@ -1,7 +1,7 @@
 /************************************************
 * Author: Fan Ruirui
 * email:fanrr@ihep.ac.cn
-* Last modified:	2015-07-01 14:38
+* Last modified:	2016-03-25 10:50
 * Filename:		EventAction.cc
 * Description: 
 *************************************************/
@@ -73,7 +73,7 @@ void EventAction::EndOfEventAction(const G4Event* evt)
 		G4double Fill_flag=0;
 		for(int i=0;i<n_hit;i++)
 		{  
-			newdata->FillTrueth(((*PHC)[i]->GetEdep())/keV,i);
+			newdata->FillTrueth(((*PHC)[i]->GetEdep())/keV,((*PHC)[i]->GetInTime())/ns,i);
 			Fill_flag+=(*PHC)[i]->GetEdep();
 		}
 		if(Fill_flag)newdata->SaveTrueth();

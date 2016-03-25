@@ -1,7 +1,7 @@
 /************************************************
 * Author: Fan Ruirui
 * email:fanrr@ihep.ac.cn
-* Last modified:	2016-03-22 14:26
+* Last modified:	2016-03-25 10:48
 * Filename:		DataBase.cc
 * Description: 
 *************************************************/
@@ -31,6 +31,7 @@ DataBase::~DataBase()
 	hfile->Write();
 	//bin_file.close();
 	delete energy;
+	delete incident_time;
 	//delete D_energy;
 }
 
@@ -38,15 +39,19 @@ void DataBase::MakeTree(int det_num)
 {
 	int ch_num=det_num*4;
 	energy=new double[ch_num];
+	incident_time=new double[ch_num];
 	//D_energy=new int[ch_num];
 	char Bname[12];
 	//construct the tree
 	t=new TTree("truth","Truth");
 	for (int i= 0; i< ch_num; i++)
 	{
-		sprintf(Hname,"t_Ch%d",i+1); 
+		sprintf(Hname,"e_Ch%d",i+1); 
 		sprintf(Bname,"energy%d/D",i+1);
 		t->Branch(Hname,&energy[i],Bname);
+                sprintf(Hname,"t_Ch%d",i+1);
+		sprintf(Bname,"incident_time%d/D",i+1);
+                t->Branch(Hname,&incident_time[i],Bname);
 	}
 
 	/*d=new TTree("data","Data");
@@ -65,9 +70,10 @@ void DataBase::MakeTree(int det_num)
 	}	
 }
 
- void DataBase::FillTrueth(double energy1,int D_id1)
+ void DataBase::FillTrueth(double energy1,double time1,int D_id1)
 {
 	energy[D_id1]=energy1;
+	incident_time[D_id1]=time1;
 }
 
  void DataBase::SaveTrueth()
@@ -77,7 +83,7 @@ void DataBase::MakeTree(int det_num)
 
  void DataBase::FillData(int energy1,int D_id1)
 {
-	D_energy[D_id1]=energy1;
+//	D_energy[D_id1]=energy1;
 }
 
  void DataBase::SaveData(int ID)

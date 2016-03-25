@@ -1,8 +1,8 @@
 /************************************************
 * Author: Fan Ruirui
 * email:fanrr@ihep.ac.cn
-* Last modified: 2015-07-01 14:43
-* Filename: DetHit.cc
+* Last modified:	2016-03-25 10:23
+* Filename:		DetHit.cc
 * Description: 
 *************************************************/
 #include "DetHit.hh"
@@ -25,17 +25,19 @@ DetHit::~DetHit()
 DetHit::DetHit(const DetHit &right)
   : G4VHit()
 {
-  edep = right.edep;
+	edep = right.edep;
+	intime=right.intime;
 }
 const DetHit& DetHit::operator=(const DetHit &right)
 {
-  edep = right.edep;
-  return *this;
+	edep = right.edep;
+	intime=right.intime;
+	return *this;
 }
 
 G4int DetHit::operator==(const DetHit &right) const
 {
-  return (this==&right) ? 1 : 0;
+	return (this==&right) ? 1 : 0;
 }
 
 void DetHit::Draw()

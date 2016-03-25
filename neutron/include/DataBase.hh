@@ -1,7 +1,7 @@
 /************************************************
 * Author: Fan Ruirui
 * email:fanrr@ihep.ac.cn
-* Last modified:	2016-03-22 14:26
+* Last modified:	2016-03-25 10:48
 * Filename:		DataBase.hh
 * Description: 
 *************************************************/
@@ -28,7 +28,7 @@ public:
 	int sample_event;
 	int sub_event;
 	void MakeTree(int);
-	void FillTrueth(double,int);
+	void FillTrueth(double,double,int);
 	void FillData(int,int);
 	void FillOnline(int); 
 	void Fill2DOnline(int,int,int);
@@ -48,6 +48,7 @@ private:
 	char Hname[100];
 	TFile* hfile;
 	double *energy;
+	double *incident_time;
 	int *D_energy;
 	int Evn_number;
 	ofstream bin_file;

@@ -1,8 +1,8 @@
 /************************************************
 * Author: Fan Ruirui
 * email:fanrr@ihep.ac.cn
-* Last modified: 2015-07-01 14:45
-* Filename: DetSD.cc
+* Last modified:	2016-03-25 10:51
+* Filename:		DetSD.cc
 * Description: 
 *************************************************/
 
@@ -29,6 +29,8 @@ DetSD::DetSD(G4String name,G4int nCells)
 :G4VSensitiveDetector(name),HCID(-1)
 {
 	numberOfCells=nCells;
+	hit_flag=new int[4*numberOfCells];
+	for(int i=0;i<numberOfCells;i++)hit_flag[i]=0;
 	G4String HCname;
 	collectionName.insert(HCname="DetCollection");
 
@@ -67,6 +69,11 @@ G4bool DetSD::ProcessHits(G4Step* aStep,G4TouchableHistory*)
   if(e==0.) return false;
 
   G4int copyID =aStep->GetPreStepPoint()->GetTouchableHandle()->GetCopyNumber()+4*(aStep->GetPreStepPoint()->GetTouchableHandle()->GetCopyNumber(1));
+ if(!hit_flag[copyID])
+	{
+		(*DetCollection)[copyID]->SetInTime(aStep->GetPreStepPoint()->GetGlobalTime());
+		hit_flag[copyID]=1;
+	}
  (*DetCollection)[copyID]->AddEdep(e);
 
   return true;

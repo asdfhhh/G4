@@ -1,8 +1,8 @@
 /************************************************
 * Author: Fan Ruirui
 * email:fanrr@ihep.ac.cn
-* Last modified: 2015-07-01 14:47
-* Filename: DetSD.hh
+* Last modified:	2016-03-25 10:34
+* Filename:		DetSD.hh
 * Description: 
 *************************************************/
 
@@ -32,10 +32,11 @@ class DetSD : public G4VSensitiveDetector
      
      
   private:
-      DetHitsCollection* DetCollection;
-       G4double e;
-       G4double ed;
-       int HCID;
+	DetHitsCollection* DetCollection;
+	G4double e;
+	G4double ed;
+	G4int* hit_flag;
+	int HCID;
 	G4int numberOfCells;
 
 
