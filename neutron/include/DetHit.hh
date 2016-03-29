@@ -1,13 +1,15 @@
 /************************************************
 * Author: Fan Ruirui
 * email:fanrr@ihep.ac.cn
-* Last modified:	2016-03-25 10:22
+* Last modified:	2016-03-27 16:39
 * Filename:		DetHit.hh
 * Description: 
 *************************************************/
 
 #ifndef DetHit_h
 #define DetHit_h 1
+#include "globals.hh"
+#include "G4UnitsTable.hh"
 
 #include "G4VHit.hh"
 #include "G4THitsCollection.hh"
@@ -36,18 +38,22 @@ class DetHit : public G4VHit
   private:
 	G4double edep;
 	G4double intime;
+	G4String inname;
   public:
-      inline void SetEdep(G4double de)
-      { edep =de;}
-      inline void AddEdep(G4double de)
+	inline void SetEdep(G4double de)
+	{ edep =de;}
+	inline void AddEdep(G4double de)
         { edep +=de;}
         inline G4double GetEdep()
-      { return edep; }
+	{ return edep; }
 	inline void SetInTime(G4double time_incident)
 	{ intime=time_incident;}
-	G4double GetInTime()
+	inline G4double GetInTime()
 	{ return intime;}
-
+	inline void SetTrackName(G4String name_incident)
+	{ inname=name_incident;}
+	inline G4String GetTrackName()
+	{return inname;}
 
 };
 

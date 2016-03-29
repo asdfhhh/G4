@@ -1,7 +1,7 @@
 /************************************************
 * Author: Fan Ruirui
 * email:fanrr@ihep.ac.cn
-* Last modified:	2016-03-25 10:51
+* Last modified:	2016-03-27 16:18
 * Filename:		DetSD.cc
 * Description: 
 *************************************************/
@@ -29,8 +29,6 @@ DetSD::DetSD(G4String name,G4int nCells)
 :G4VSensitiveDetector(name),HCID(-1)
 {
 	numberOfCells=nCells;
-	hit_flag=new int[4*numberOfCells];
-	for(int i=0;i<numberOfCells;i++)hit_flag[i]=0;
 	G4String HCname;
 	collectionName.insert(HCname="DetCollection");
 
@@ -59,6 +57,8 @@ void DetSD::Initialize(G4HCofThisEvent* HCE)
   	 DetCollection->insert( newHit );
     }
   
+	hit_flag=new int[4*numberOfCells];
+	for(int i=0;i<numberOfCells;i++)hit_flag[i]=0;
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
@@ -72,6 +72,7 @@ G4bool DetSD::ProcessHits(G4Step* aStep,G4TouchableHistory*)
  if(!hit_flag[copyID])
 	{
 		(*DetCollection)[copyID]->SetInTime(aStep->GetPreStepPoint()->GetGlobalTime());
+		(*DetCollection)[copyID]->SetTrackName(aStep->GetTrack()->GetParticleDefinition()->GetParticleName());
 		hit_flag[copyID]=1;
 	}
  (*DetCollection)[copyID]->AddEdep(e);

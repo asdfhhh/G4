@@ -49,9 +49,14 @@ void DataBase::MakeTree(int det_num)
 		sprintf(Hname,"e_Ch%d",i+1); 
 		sprintf(Bname,"energy%d/D",i+1);
 		t->Branch(Hname,&energy[i],Bname);
-                sprintf(Hname,"t_Ch%d",i+1);
+ 
+		sprintf(Hname,"t_Ch%d",i+1);
 		sprintf(Bname,"incident_time%d/D",i+1);
                 t->Branch(Hname,&incident_time[i],Bname);
+	
+		sprintf(Hname,"n_Ch%d",i+1);
+                sprintf(Bname,"incident_name%d/C",i+1);
+                t->Branch(Hname,&incident_name[i],Bname);
 	}
 
 	/*d=new TTree("data","Data");
@@ -70,10 +75,12 @@ void DataBase::MakeTree(int det_num)
 	}	
 }
 
- void DataBase::FillTrueth(double energy1,double time1,int D_id1)
+ void DataBase::FillTrueth(double energy1,double time1,G4String name1,int D_id1)
 {
 	energy[D_id1]=energy1;
 	incident_time[D_id1]=time1;
+	strcpy(&incident_name[D_id1][100],name1.c_str());
+	//G4cout<<incident_name[D_id1]<<G4endl;
 }
 
  void DataBase::SaveTrueth()

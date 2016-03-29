@@ -73,7 +73,7 @@ void EventAction::EndOfEventAction(const G4Event* evt)
 		G4double Fill_flag=0;
 		for(int i=0;i<n_hit;i++)
 		{  
-			newdata->FillTrueth(((*PHC)[i]->GetEdep())/keV,((*PHC)[i]->GetInTime())/ns,i);
+			newdata->FillTrueth(((*PHC)[i]->GetEdep())/keV,((*PHC)[i]->GetInTime())/ns,(*PHC)[i]->GetTrackName(),i);
 			Fill_flag+=(*PHC)[i]->GetEdep();
 		}
 		if(Fill_flag)newdata->SaveTrueth();

@@ -1,7 +1,7 @@
 /************************************************
 * Author: Fan Ruirui
 * email:fanrr@ihep.ac.cn
-* Last modified:	2016-03-25 10:23
+* Last modified:	2016-03-27 16:39
 * Filename:		DetHit.cc
 * Description: 
 *************************************************/
@@ -27,11 +27,13 @@ DetHit::DetHit(const DetHit &right)
 {
 	edep = right.edep;
 	intime=right.intime;
+	inname=right.inname;
 }
 const DetHit& DetHit::operator=(const DetHit &right)
 {
 	edep = right.edep;
 	intime=right.intime;
+	inname=right.inname;
 	return *this;
 }
 

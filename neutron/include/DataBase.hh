@@ -18,6 +18,7 @@
 #include <string>
 #include <iostream>
 #include <fstream>
+#include "Initial.hh"
 using namespace std;
 
 class DataBase
@@ -28,7 +29,7 @@ public:
 	int sample_event;
 	int sub_event;
 	void MakeTree(int);
-	void FillTrueth(double,double,int);
+	void FillTrueth(double,double,G4String,int);
 	void FillData(int,int);
 	void FillOnline(int); 
 	void Fill2DOnline(int,int,int);
@@ -49,6 +50,7 @@ private:
 	TFile* hfile;
 	double *energy;
 	double *incident_time;
+	char  incident_name[detector_n*4][100];
 	int *D_energy;
 	int Evn_number;
 	ofstream bin_file;
