@@ -26,7 +26,7 @@ PrimaryGeneratorAction::PrimaryGeneratorAction(DetectorConstruction*det):thisdet
 	G4ParticleTable* particleTable = G4ParticleTable::GetParticleTable();
 	G4String particleName;
 	G4ParticleDefinition* particle;
-	particle = particleTable->FindParticle(particleName="proton");
+	particle = particleTable->FindParticle(particleName="neutron");
 	particleGun = fParticleGun;
 	particleGun->SetParticleDefinition(particle);
 	particleGun->SetParticleEnergy(1*MeV);

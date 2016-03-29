@@ -30,8 +30,8 @@ DataBase::~DataBase()
 	hfile->cd();
 	hfile->Write();
 	//bin_file.close();
-	delete energy;
-	delete incident_time;
+	if(energy)delete energy;
+	if(incident_time)delete incident_time;
 	//delete D_energy;
 }
 

@@ -69,7 +69,7 @@ G4bool DetSD::ProcessHits(G4Step* aStep,G4TouchableHistory*)
   if(e==0.) return false;
 
   G4int copyID =aStep->GetPreStepPoint()->GetTouchableHandle()->GetCopyNumber()+4*(aStep->GetPreStepPoint()->GetTouchableHandle()->GetCopyNumber(1));
- if(!hit_flag[copyID])
+ if((!hit_flag[copyID])&&(aStep->GetTrack()->GetParentID()==1))
 	{
 		(*DetCollection)[copyID]->SetInTime(aStep->GetPreStepPoint()->GetGlobalTime());
 		(*DetCollection)[copyID]->SetTrackName(aStep->GetTrack()->GetParticleDefinition()->GetParticleName());
