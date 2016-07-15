@@ -1,7 +1,7 @@
 /************************************************
 * Author: Fan Ruirui
 * email:fanrr@ihep.ac.cn
-* Last modified:	2016-03-25 10:48
+* Last modified:	2016-07-15 10:53
 * Filename:		DataBase.cc
 * Description: 
 *************************************************/
@@ -66,13 +66,10 @@ void DataBase::MakeTree(int det_num)
 		sprintf(Bname,"D_energy%d/I",i+1);
 		d->Branch(Hname,&D_energy[i],Bname);
 	}*/
-	if(Target_flag)
-	{
-		v=new TTree("vertex","Vertex");
-		v->Branch("V_name",&v_name,"name/C");
-		v->Branch("V_energy",&v_energy,"energy/D");
-		v->Branch("V_time",&v_time,"time/D");
-	}	
+	v=new TTree("vertex","Vertex");
+	v->Branch("V_name",&v_name,"name/C");
+	v->Branch("V_energy",&v_energy,"energy/D");
+	v->Branch("V_time",&v_time,"time/D");
 }
 
  void DataBase::FillTrueth(double energy1,double time1,G4String name1,int D_id1)

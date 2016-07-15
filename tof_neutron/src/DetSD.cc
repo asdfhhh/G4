@@ -1,7 +1,7 @@
 /************************************************
 * Author: Fan Ruirui
 * email:fanrr@ihep.ac.cn
-* Last modified:	2016-03-27 16:18
+* Last modified:	2016-07-15 10:44
 * Filename:		DetSD.cc
 * Description: 
 *************************************************/
@@ -50,14 +50,14 @@ void DetSD::Initialize(G4HCofThisEvent* HCE)
  if(HCID<0)
   { HCID = G4SDManager::GetSDMpointer()->GetCollectionID(collectionName[0]); }
   HCE->AddHitsCollection( HCID, DetCollection );  
-       for(G4int j=0;j<(4*numberOfCells);j++)
+       for(G4int j=0;j<numberOfCells;j++)
   {
      DetHit* newHit = new DetHit();
  	 newHit->SetEdep(0);
   	 DetCollection->insert( newHit );
     }
   
-	hit_flag=new int[4*numberOfCells];
+	hit_flag=new int[numberOfCells];
 	for(int i=0;i<numberOfCells;i++)hit_flag[i]=0;
 }
 

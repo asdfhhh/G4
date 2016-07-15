@@ -3,7 +3,7 @@
 # GNUmakefile for examples module.  Gabriele Cosmo, 06/04/98.
 # --------------------------------------------------------------
 
-name := neutron
+name := tof_neutron
 G4TARGET := $(name)
 G4EXLIB := true
 CPPFLAGS    += -I`root-config --incdir`

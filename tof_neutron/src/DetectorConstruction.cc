@@ -1,7 +1,7 @@
 /************************************************
 * Author: Fan Ruirui
 * email:fanrr@ihep.ac.cn
-* Last modified:	2016-03-22 14:27
+* Last modified:	2016-07-15 10:59
 * Filename:		DetectorConstruction.cc
 * Description: 
 *************************************************/
@@ -30,7 +30,7 @@
 #include "Initial.hh"
 #include "G4SystemOfUnits.hh"
 #include "G4PhysicalConstants.hh"
-
+#include "DetSD.hh"
 
 using namespace std;
 
@@ -47,7 +47,7 @@ DetectorConstruction::~DetectorConstruction()
 G4VPhysicalVolume* DetectorConstruction::Construct()
 {	
 	N_det=detector_n;
-	Det_dis=20*cm; 
+	G4double Det_dis=20*cm; 
 	printf("Initial Detector construction......");
 	G4double a;  // atomic mass
 	G4double z;  // atomic number
@@ -57,6 +57,7 @@ G4VPhysicalVolume* DetectorConstruction::Construct()
 	G4NistManager* man = G4NistManager::Instance();
 	man->SetVerbose(0);
 	G4Material* Fe= man->FindOrBuildMaterial("G4_Fe");
+	G4Material* Si= man->FindOrBuildMaterial("G4_Si");
 	//------------------------------ experimental hall (world volume)
 	//------------------------------ beam line along z axis
  
@@ -77,10 +78,8 @@ G4VPhysicalVolume* DetectorConstruction::Construct()
         new G4PVPlacement(rm_x,G4ThreeVector(0,82*cm,0),tube_log,"tube1_phys",experimentalHall_log,false,0);
 	new G4PVPlacement(rm_x,G4ThreeVector(0,-82*cm,0),tube_log,"tube2_phys",experimentalHall_log,false,1);
 	//detector construction
-	acell=new Cell(N_det);
-	detector_log=acell->Construct();
-	Det_R=acell->GetRadius();
-	Surf_dis=Det_dis-acell->GetHalfLength();
+	detector_box=new G4Box("detector_box",1*cm,1.25*cm,250*um);
+	detector_log=new G4LogicalVolume(detector_box,Si,"detector_log",0,0,0);
 	char name[10];
 	double d_angle=180/N_det;
 	for(int i=0;i<N_det;i++)
@@ -95,19 +94,24 @@ G4VPhysicalVolume* DetectorConstruction::Construct()
 		new G4PVPlacement(rm_d,G4ThreeVector(sin(r_angle)*Det_dis,-cos(r_angle)*Det_dis,0),detector_log,name,chamberinner_log,false,i);
 	}
 	//construction the target
-	#if Target_flag
 	G4RotationMatrix* rm_t= new G4RotationMatrix();
 	rm_t->rotateX(90*deg);
 	rm_t->rotateY(45*deg);
 	atarget=new Target();
 	target_log=atarget->Construct();
 	target_phys=new G4PVPlacement(rm_t,G4ThreeVector(0,0,0),target_log,name,chamberinner_log,false,0);
-	#endif
 	//give some colour see see
 	G4VisAttributes* VisAtt1= new G4VisAttributes(G4Colour(0.5,0.5,0.5));
 	chamber_log->SetVisAttributes(G4VisAttributes::Invisible);
 	chamberinner_log->SetVisAttributes (G4VisAttributes::Invisible);
 	experimentalHall_log->SetVisAttributes (G4VisAttributes::Invisible);
+	//SD setting
+        G4SDManager* SDman = G4SDManager::GetSDMpointer();
+        G4String Dname = "/Det";
+        DetSD * TelSD = new DetSD(Dname,N_det);
+        SDman->AddNewDetector(TelSD);
+        detector_log->SetSensitiveDetector(TelSD);
+
 // print the table of materials
 	G4cout << *(G4Material::GetMaterialTable()) << endl;	
 	printf("Initial complete!\n");
