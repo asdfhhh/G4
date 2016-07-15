@@ -1,7 +1,7 @@
 /************************************************
 * Author: Fan Ruirui
 * email:fanrr@ihep.ac.cn
-* Last modified:	2016-03-27 16:18
+* Last modified:	2016-07-15 10:39
 * Filename:		DetSD.cc
 * Description: 
 *************************************************/
@@ -58,7 +58,7 @@ void DetSD::Initialize(G4HCofThisEvent* HCE)
     }
   
 	hit_flag=new int[4*numberOfCells];
-	for(int i=0;i<numberOfCells;i++)hit_flag[i]=0;
+	for(int i=0;i<4*numberOfCells;i++)hit_flag[i]=0;
 }
 
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
@@ -69,7 +69,7 @@ G4bool DetSD::ProcessHits(G4Step* aStep,G4TouchableHistory*)
   if(e==0.) return false;
 
   G4int copyID =aStep->GetPreStepPoint()->GetTouchableHandle()->GetCopyNumber()+4*(aStep->GetPreStepPoint()->GetTouchableHandle()->GetCopyNumber(1));
- if((!hit_flag[copyID])&&(aStep->GetTrack()->GetParentID()==1))
+ if((!hit_flag[copyID])&&(aStep->GetTrack()->GetParentID()==1))//leave some ? here**************************
 	{
 		(*DetCollection)[copyID]->SetInTime(aStep->GetPreStepPoint()->GetGlobalTime());
 		(*DetCollection)[copyID]->SetTrackName(aStep->GetTrack()->GetParticleDefinition()->GetParticleName());
