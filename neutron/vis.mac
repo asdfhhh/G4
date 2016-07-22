@@ -80,7 +80,7 @@
 #
 # For file-based drivers, use this to create an empty detector view:
 #/vis/viewer/flush
-/vis/viewer/set/viewpointThetaPhi
+/vis/viewer/set/viewpointThetaPhi 0 0
 /vis/viewer/zoom 2
 /vis/viewer/flush
 
