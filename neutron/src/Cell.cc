@@ -100,7 +100,7 @@ G4LogicalVolume* Cell::Construct()
 //construction Ar low pressure
   z = 18.;
   a = 39.95*g/mole;
-  density     = 0.00166201/10*g/cm3;//1E5Pa divided by a factor
+  density     = 0.00166201*2/10*g/cm3;//1E5Pa divided by a factor
   int ncomponents = 1;
   int natoms;
   G4Element* elAr = new G4Element("Element_Argon",  "Ar", z, a);
