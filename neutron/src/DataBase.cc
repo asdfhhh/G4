@@ -7,6 +7,7 @@
 *************************************************/
 #include "DataBase.hh"
 #include "Initial.hh"
+#include <time.h>
 DataBase::DataBase(int Tname):sample_event(0),sub_event(0)
 {
 	printf("Initial data storage......\n");
@@ -15,7 +16,12 @@ DataBase::DataBase(int Tname):sample_event(0),sub_event(0)
 	//char bin_name[100];
 
 //root file output
-	sprintf(name,"ana/Data_%d.root",Tname );
+	time_t rawtime;
+	struct tm * timeinfo;
+	time (&rawtime);
+	timeinfo = localtime (&rawtime);
+	strftime (name,100,"ana/%Y%m%d%H%M%S.root",timeinfo);
+	//sprintf(name,"ana/Data_%d.root",Tname );
 	//sprintf(bin_name,"Data_%d.bin",Tname );
 	cout<<"the ROOT file: "<<name<<" constructed."<<endl;
 	//cout<<"the binary file: "<<bin_name<<" constructed."<<endl;
