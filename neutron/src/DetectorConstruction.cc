@@ -1,7 +1,7 @@
 /************************************************
 * Author: Fan Ruirui
 * email:fanrr@ihep.ac.cn
-* Last modified:	2016-03-22 14:27
+* Last modified:	2016-07-22 16:14
 * Filename:		DetectorConstruction.cc
 * Description: 
 *************************************************/
@@ -57,6 +57,15 @@ G4VPhysicalVolume* DetectorConstruction::Construct()
 	G4NistManager* man = G4NistManager::Instance();
 	man->SetVerbose(0);
 	G4Material* Fe= man->FindOrBuildMaterial("G4_Fe");
+  	z = 18.;
+  	a = 39.95*g/mole;
+  	density     = 0.00166201/100*g/cm3;//1E5Pa divided by a factor
+  	int ncomponents = 1;
+  	int natoms;
+  	G4Element* elAr = new G4Element("Element_Argon",  "Ar", z, a);
+  	G4Material* Ar = new G4Material("Ar",density , ncomponents);
+	Ar->AddElement(elAr,natoms=1);
+
 	//------------------------------ experimental hall (world volume)
 	//------------------------------ beam line along z axis
  
@@ -68,7 +77,7 @@ G4VPhysicalVolume* DetectorConstruction::Construct()
 	chamberinner_tub=new G4Tubs("chamberinner_tub",0*cm,50*cm,10*cm,0,360*deg);
 	tube_tub=new G4Tubs("tube_tub",5*cm,6*cm,30*cm,0,360*deg);
 	chamber_log= new G4LogicalVolume(chamber_tub,Fe,"chamber_log",0,0,0);
-	chamberinner_log= new G4LogicalVolume(chamber_tub,Vacuum,"chamberinner_log",0,0,0);
+	chamberinner_log= new G4LogicalVolume(chamber_tub,Ar,"chamberinner_log",0,0,0);
         tube_log= new G4LogicalVolume(tube_tub,Fe,"tube_log",0,0,0);
 	G4RotationMatrix* rm_x = new G4RotationMatrix();
 	rm_x->rotateX(90*deg);	

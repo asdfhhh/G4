@@ -50,7 +50,7 @@ private:
 	TFile* hfile;
 	double *energy;
 	double *incident_time;
-	char  incident_name[detector_n*4][100];
+	char  incident_name[detector_n][100];
 	int *D_energy;
 	int Evn_number;
 	ofstream bin_file;

@@ -1,5 +1,5 @@
 #ifndef Initial_H
 #define Initial_H 1
 //initial the detector units quantity
-#define detector_n 4 
+#define detector_n 16 
 #endif

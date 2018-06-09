@@ -37,7 +37,7 @@ DataBase::~DataBase()
 
 void DataBase::MakeTree(int det_num)
 {
-	int ch_num=det_num*4;
+	int ch_num=det_num;
 	energy=new double[ch_num];
 	incident_time=new double[ch_num];
 	//D_energy=new int[ch_num];
